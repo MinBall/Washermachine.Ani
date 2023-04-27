@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Runtime.InteropServices;
 
 using UnityEngine;
+using UnityEngine.Video;
 
 public class StepController : MonoBehaviour
 {
@@ -11,10 +12,11 @@ public class StepController : MonoBehaviour
     public Camera mainCamera;
     public Camera uiCamera;
     public LayerMask guideLayer;
+    public VideoPlayer Vp;
 
     public void Awake ()
-    {
-        
+    {        
+        Vp.url = System.IO.Path.Combine(Application.streamingAssetsPath, "SampleClip.mp4");
     }
     public void ChangeMainText (string code)
     {
