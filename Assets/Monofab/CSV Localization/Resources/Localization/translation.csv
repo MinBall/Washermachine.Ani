@@ -1,0 +1,18 @@
+CODE,Korean,English,Hungarian,Ukrainian
+MainText001, 세탁기 사용 방법 학습을 시작합니다.\n화면을 클릭 해 주세요., Starting to learn how to use the washing machine. \n Please click on the screen., A mosogep hasznalatanak megtanulasa elkezd?dik. \n Kattintson a keperny?re.," Почина?мо вчитися користуватися пральною машиною. \n Будь ласка, натисн?ть на екран."
+MainText002, "세탁기 문을 열고, 세탁물을 세탁 통 안에 넣습니다.", "Open the washing machine door.", "Nyissa ki a mosogep ajtajat.", "Відкрийте дверцята пральної машини."
+MainText003, 세제 자동 투입함을 엽니다., Open the automatic detergent dispenser., Nyissa ki az automata mososzeradagolot., В?дкрийте автоматичний в?дс?к для миючого засобу.
+MainText004, 적정량의 세제와 섬유 유연제를 투입합니다., Put the appropriate amount of detergent and fabric softener., Tegyen a megfelel? mennyiseg? mososzerrel es oblit?vel., Поклад?ть в?дпов?дну к?льк?сть миючого засобу та засобу для забезпечення м'якост? тканин.
+MainText005, 세제 자동 투입함을 닫습니다., Close the automatic detergent dispenser., Zarja be az automata mososzer adagolojat., Закрийте автоматичний в?дс?к для миючого засобу.
+MainText006, 세탁모드를 설정합니다., Set the washing mode., Allitsa be a mosasi modot., Встанов?ть режим прання.
+MainText007, 물높이를 설정합니다., Set the water level., Allitsa be a vizszintet., Встанов?ть р?вень води.
+MainText008, 시작/일시정지 버튼을 눌러 세탁을 시작합니다., Press the start/pause button to start the washing., Nyomja meg a start/szunet gombot a mosashoz.," Натисн?ть кнопку старт/пауза, щоб роз"
+MainText009, 세탁이 시작 되었습니다., The washing has started., Elkezd?dott a mosas., Почалося прання.
+MainText010, 세탁이 완료 되기까지 시간을 보냅니다., Wait for the washing to complete., Varja meg," amig befejez?dik a mosas., Зачекайте, поки завершиться прання."
+,,,,
+UI001, 야간 모드, Night mode, Ejszakai mod, Н?чний режим
+UI002, 표준 모드, Standard mode, Normal mod, Стандартний режим
+UI003, 쾌속 세탁, Quick wash, Gyors mosas, Швидке прання
+UI004, 강력 세탁, Intensive wash, Intenziv mosas, ?нтенсивне прання
+UI005, 이불 세탁, Bedding wash, Agynem? mosas, Прання пост?льно? б?лизни
+UI006, 속옷 세탁, Delicate wash, Finom ruhak mosasa, Прання б?лизни з дбайливим обробленням
