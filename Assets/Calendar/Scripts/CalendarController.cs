@@ -8,21 +8,38 @@ using UnityEngine.UI;
 public class CalendarController : MonoBehaviour
 {
     public GameObject _calendarPanel;
+    public GameObject _item;
+    public GameObject[] Popup;
+
     public Text _yearNumText;
     public Text _monthNumText;
     public TextMeshProUGUI[] RandomList = new TextMeshProUGUI[3];
-    public GameObject _item;
+    public TextMeshProUGUI[] TotalList;
+    public TextMeshProUGUI[] Price;
+    public TextMeshProUGUI[] TotalCount;
+    public TextMeshProUGUI TotalPrice;
+    public TMP_Dropdown[] options;
 
     public List<GameObject> _dateItems = new List<GameObject>();
     const int _totalDateNum = 42;
 
-    private DateTime _dateTime;
     public static CalendarController _calendarInstance;
+
+    private DateTime _dateTime;
     DateTime nowDate = DateTime.Now;
     DateTime SelectDate;
     DateTime _2daylater;
+
     string Selectyear;
-    
+    string DROPDOWN_KEY = "DROPDOWN_KEY";
+
+    int[] currentOption;
+    int[] Count = new int[3] { 0, 0, 0 };
+    int[] result = new int[3];
+    int totalprice = 0;
+
+    List<string> optionList = new List<string>() { "선택하세요", "Y셔츠", "남방", "마남방", "정장 상의", "정장 하의", "양복 예복 조끼", "콤비 상의", "연미복 상의", "턱시도 상의", "턱시도 바지" };
+
     public static Dictionary<int, int> Washerprice = new Dictionary<int, int>()
     {
         {1, 1800},
@@ -49,6 +66,25 @@ public class CalendarController : MonoBehaviour
         {9, "턱시도 상의"},
         {10, "턱시도 바지"},
     };
+
+    private void Awake()
+    {
+        currentOption = new int[options.Length];
+        if (PlayerPrefs.HasKey(DROPDOWN_KEY) == false)
+        {
+            for (int i = 0; i < options.Length; i++)
+            {
+                currentOption[i] = 0;
+            }
+        }
+        else
+        {
+            for (int i = 0; i < options.Length; i++)
+            {
+                currentOption[i] = PlayerPrefs.GetInt(DROPDOWN_KEY + i);
+            }
+        }
+    }
     void Start()
     {
 
@@ -74,6 +110,17 @@ public class CalendarController : MonoBehaviour
         CreateCalendar();
 
         _calendarPanel.SetActive(false);
+
+        for (int i = 0; i < options.Length; i++)
+        {
+            options[i].ClearOptions();
+            options[i].AddOptions(optionList);
+            options[i].value = currentOption[i];
+            int index = i;
+            options[i].onValueChanged.AddListener(delegate { setDropDown(index, options[index].value); });
+        }
+        //setDropDown(0, currentOption[0]); //최초 옵션 실행이 필요한 경우
+        resetDropdowns();
     }
 
     void CreateCalendar()
@@ -175,25 +222,87 @@ public class CalendarController : MonoBehaviour
             _calendarPanel.SetActive(false);
            // Debug.Log(SelectDate + "날짜로 접수되었습니다.");
             _target.text = _yearNumText.text + "-" + _monthNumText.text + "-" + int.Parse(day).ToString("D2");
+            RandomNumber();
         }
         else
         {
+            // 오류 팝업 띄우기
             //Debug.Log("2일 후 선택해 주세요.");
-            //gameObject.SetActive(true); 팝업 창
-        }
-        RandomNumber();
+            Popup[0].SetActive(true);
+        }        
     }
 
     public void RandomNumber()
     {
-        int[] result = new int[3];
-
         for (int i = 0; i < 3; i++)
         {
             result[i] =UnityEngine.Random.Range(1, 11);
             //Debug.Log(WasherMenu[result[i]] +" "+ Washerprice[result[i]] + "원");
             RandomList[i].text = WasherMenu[result[i]];
         }
+    }
+    void setDropDown(int index, int option)
+    {
+        if (option != 0)
+        {            
+            string selectedListName = CalendarController.WasherMenu[option];
+            int selectedCount = 1;
+
+            if (option == result[index])
+            {
+                for (int i = 0; i < options.Length; i++)
+                {
+                    if (i != index && TotalList[i].text == selectedListName)
+                    {
+                        // ListName이 같으면 Count 증가시키고 다음 배열에 할당하지 않음
+                        Count[i]++;
+                        TotalCount[i].text = Count[i].ToString();
+                        Price[index].text = (Count[index] * CalendarController.Washerprice[option]).ToString();
+                        selectedCount = 0;
+                        totalprice += CalendarController.Washerprice[option];
+                        TotalPrice.text = totalprice.ToString() + "원";
+                        Debug.Log(CalendarController.Washerprice[option]);
+                    }
+                }
+
+                if (selectedCount > 0)
+                {
+                    TotalList[index].text = selectedListName;
+                    Count[index] = 1;
+                    Price[index].text = CalendarController.Washerprice[option].ToString();
+                    TotalCount[index].text = Count[index].ToString();
+                    PlayerPrefs.SetInt(DROPDOWN_KEY + index, option);
+                    totalprice += CalendarController.Washerprice[option];
+                    TotalPrice.text = totalprice.ToString() + "원";
+                    Debug.Log(CalendarController.Washerprice[option]);
+                }
+            }
+            else
+            {
+                // 오류 팝업 띄우기 함수
+                //Debug.Log("같은 옵션을 골라주세요,");
+                Popup[1].SetActive(true);
+            }
+        }
+    }
+
+    void resetDropdowns()
+    {
+        for (int i = 0; i < options.Length; i++)
+        {
+            currentOption[i] = 0;
+            options[i].value = 0;
+            setDropDown(i, 0);
+        }
+    }
+    public void ReceiptPopUpOn()
+    {
+        Popup[2].SetActive(true);
+    }
+    public void PopUpClose()
+    {
+        for(int i =0; i<3;i++)
+            Popup[i].SetActive(false);
     }
 
 }
