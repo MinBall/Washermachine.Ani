@@ -29,7 +29,12 @@ public class StepController : MonoBehaviour
         uiCamera.cullingMask = uiCamera.cullingMask ^ guideLayer;
         animator.SetInteger("PlayCount", animator.GetInteger("PlayCount") + 1);
         if (animator.GetInteger("PlayCount") >= 2)
-            Native.TestFinish();
+        {
+            if (animator.GetInteger("PlayCount") >= 3)
+                Native.TestFinish();
+
+            animator.SetInteger("PlayCount", animator.GetInteger("PlayCount") + 1);            
+        }
     }
     
     public static class Native
@@ -37,5 +42,5 @@ public class StepController : MonoBehaviour
 
         [DllImport("__Internal")]
         public static extern void TestFinish ();
-    }
+    }    
 }
