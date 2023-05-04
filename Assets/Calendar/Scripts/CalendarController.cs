@@ -258,6 +258,7 @@ public class CalendarController : MonoBehaviour
                         Count[i]++;
                         TotalCount[i].text = Count[i].ToString();
                         Price[index].text = (Count[index] * CalendarController.Washerprice[option]).ToString();
+                        Price[i].text = (Count[i] * CalendarController.Washerprice[option]).ToString();
                         selectedCount = 0;
                         totalprice += CalendarController.Washerprice[option];
                         TotalPrice.text = totalprice.ToString() + "원";
