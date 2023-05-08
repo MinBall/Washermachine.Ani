@@ -262,7 +262,7 @@ public class CalendarController : MonoBehaviour
                         selectedCount = 0;
                         totalprice += Washerprice[option];
                         TotalPrice.text = totalprice.ToString() + "원";
-                        Debug.Log(Washerprice[option]);
+                        //Debug.Log(Washerprice[option]);
                     }
                 }
 
@@ -275,7 +275,7 @@ public class CalendarController : MonoBehaviour
                     PlayerPrefs.SetInt(DROPDOWN_KEY + index, option);
                     totalprice += Washerprice[option];
                     TotalPrice.text = totalprice.ToString() + "원";
-                    Debug.Log(Washerprice[option]);
+                    //Debug.Log(Washerprice[option]);
                 }
             }
             else
