@@ -40,7 +40,7 @@ public class CalendarController : MonoBehaviour
 
     List<string> optionList = new List<string>() { "선택하세요", "Y셔츠", "남방", "마남방", "정장 상의", "정장 하의", "양복 예복 조끼", "콤비 상의", "연미복 상의", "턱시도 상의", "턱시도 바지" };
 
-    public static Dictionary<int, int> Washerprice = new Dictionary<int, int>()
+    Dictionary<int, int> Washerprice = new Dictionary<int, int>()
     {
         {1, 1800},
         {2, 4000},
@@ -53,7 +53,7 @@ public class CalendarController : MonoBehaviour
         {9, 8800},
         {10, 6800},
     };
-    public static Dictionary<int, string> WasherMenu = new Dictionary<int, string>()
+    Dictionary<int, string> WasherMenu = new Dictionary<int, string>()
     {
         {1, "Y셔츠"},
         {2, "남방"},
@@ -245,7 +245,7 @@ public class CalendarController : MonoBehaviour
     {
         if (option != 0)
         {            
-            string selectedListName = CalendarController.WasherMenu[option];
+            string selectedListName = WasherMenu[option];
             int selectedCount = 1;
 
             if (option == result[index])
@@ -257,12 +257,12 @@ public class CalendarController : MonoBehaviour
                         // ListName이 같으면 Count 증가시키고 다음 배열에 할당하지 않음
                         Count[i]++;
                         TotalCount[i].text = Count[i].ToString();
-                        Price[index].text = (Count[index] * CalendarController.Washerprice[option]).ToString();
-                        Price[i].text = (Count[i] * CalendarController.Washerprice[option]).ToString();
+                        Price[index].text = (Count[index] * Washerprice[option]).ToString();
+                        Price[i].text = (Count[i] * Washerprice[option]).ToString();
                         selectedCount = 0;
-                        totalprice += CalendarController.Washerprice[option];
+                        totalprice += Washerprice[option];
                         TotalPrice.text = totalprice.ToString() + "원";
-                        Debug.Log(CalendarController.Washerprice[option]);
+                        Debug.Log(Washerprice[option]);
                     }
                 }
 
@@ -270,12 +270,12 @@ public class CalendarController : MonoBehaviour
                 {
                     TotalList[index].text = selectedListName;
                     Count[index] = 1;
-                    Price[index].text = CalendarController.Washerprice[option].ToString();
+                    Price[index].text = Washerprice[option].ToString();
                     TotalCount[index].text = Count[index].ToString();
                     PlayerPrefs.SetInt(DROPDOWN_KEY + index, option);
-                    totalprice += CalendarController.Washerprice[option];
+                    totalprice += Washerprice[option];
                     TotalPrice.text = totalprice.ToString() + "원";
-                    Debug.Log(CalendarController.Washerprice[option]);
+                    Debug.Log(Washerprice[option]);
                 }
             }
             else

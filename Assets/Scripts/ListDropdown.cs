@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class ListDropdown : MonoBehaviour
 {
-    string DROPDOWN_KEY = "DROPDOWN_KEY";
+    /*string DROPDOWN_KEY = "DROPDOWN_KEY";
 
     int[] currentOption;
     int[] Count = new int[3]{ 0,0,0 };
@@ -88,5 +88,5 @@ public class ListDropdown : MonoBehaviour
             options[i].value = 0;
             setDropDown(i, 0);
         }
-    }
+    }*/
 }
