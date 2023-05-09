@@ -20,6 +20,8 @@ public class CalendarController : MonoBehaviour
     public TextMeshProUGUI TotalPrice;
     public TMP_Dropdown[] options;
 
+    public Animator animator;
+
     public List<GameObject> _dateItems = new List<GameObject>();
     const int _totalDateNum = 42;
 
@@ -263,6 +265,7 @@ public class CalendarController : MonoBehaviour
                         totalprice += Washerprice[option];
                         TotalPrice.text = totalprice.ToString() + "원";
                         //Debug.Log(Washerprice[option]);
+                        AnimatorStepControl();
                     }
                 }
 
@@ -276,6 +279,7 @@ public class CalendarController : MonoBehaviour
                     totalprice += Washerprice[option];
                     TotalPrice.text = totalprice.ToString() + "원";
                     //Debug.Log(Washerprice[option]);
+                    AnimatorStepControl();
                 }
             }
             else
@@ -304,6 +308,11 @@ public class CalendarController : MonoBehaviour
     {
         for(int i =0; i<3;i++)
             Popup[i].SetActive(false);
+    }
+
+    public void AnimatorStepControl()
+    {
+        animator.SetTrigger("Next");
     }
 
 }
