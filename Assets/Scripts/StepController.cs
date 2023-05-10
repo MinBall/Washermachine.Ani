@@ -13,10 +13,11 @@ public class StepController : MonoBehaviour
     public Camera uiCamera;
     public LayerMask guideLayer;
     public VideoPlayer Vp;
-
+    GameObject objreset;
     public void Awake ()
     {        
         Vp.url = System.IO.Path.Combine(Application.streamingAssetsPath, "SampleClip.mp4");
+        objreset = GameObject.Find("CalendarController");        
     }
     public void ChangeMainText (string code)
     {
@@ -30,10 +31,7 @@ public class StepController : MonoBehaviour
         animator.SetInteger("PlayCount", animator.GetInteger("PlayCount") + 1);
         if (animator.GetInteger("PlayCount") >= 2)
         {
-            if (animator.GetInteger("PlayCount") >= 3)
-                Native.TestFinish();
-
-            animator.SetInteger("PlayCount", animator.GetInteger("PlayCount") + 1);            
+            Native.TestFinish();                     
         }
     }
     
@@ -43,4 +41,9 @@ public class StepController : MonoBehaviour
         [DllImport("__Internal")]
         public static extern void TestFinish ();
     }    
+
+    public void ObjReset()
+    {
+        CalendarController.action();
+    }
 }

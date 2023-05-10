@@ -9,6 +9,12 @@ MainText007, 물높이를 설정합니다., Set the water level., Allitsa be a v
 MainText008, 시작/일시정지 버튼을 눌러 세탁을 시작합니다., Press the start/pause button to start the washing., Nyomja meg a start/szunet gombot a mosashoz.," Натисн?ть кнопку старт/пауза, щоб роз"
 MainText009, 세탁이 시작 되었습니다., The washing has started., Elkezd?dott a mosas., Почалося прання.
 MainText010, 세탁이 완료 되기까지 시간을 보냅니다., Wait for the washing to complete., Varja meg," amig befejez?dik a mosas., Зачекайте, поки завершиться прання."
+MainText011, 세탁물 접수 방법 학습을 시작합니다.\n화면을 클릭해 주세요.
+MainText012, 이름 입력 후 확인 버튼을 클릭합니다.
+MainText013, 달력을 클릭해 금일로부터 2일 후를 선택합니다.
+MainText014, 아래 카드에 나온 품목과 같은 품목을 선택합니다.
+MainText015, 접수 완료 버튼을 누른 후 확인 버튼을 눌러 접수합니다.
+MainText016, 당신은 서서히 잠에 빠집니다.
 ,,,,
 UI001, 야간 모드, Night mode, Ejszakai mod, Н?чний режим
 UI002, 표준 모드, Standard mode, Normal mod, Стандартний режим

@@ -19,6 +19,7 @@ public class CalendarController : MonoBehaviour
     public TextMeshProUGUI[] TotalCount;
     public TextMeshProUGUI TotalPrice;
     public TMP_Dropdown[] options;
+    public TMP_InputField InputField;
 
     public Animator animator;
 
@@ -26,6 +27,7 @@ public class CalendarController : MonoBehaviour
     const int _totalDateNum = 42;
 
     public static CalendarController _calendarInstance;
+    public static Action action;
 
     private DateTime _dateTime;
     DateTime nowDate = DateTime.Now;
@@ -86,6 +88,7 @@ public class CalendarController : MonoBehaviour
                 currentOption[i] = PlayerPrefs.GetInt(DROPDOWN_KEY + i);
             }
         }
+        action += AllObjectReset;
     }
     void Start()
     {
@@ -225,12 +228,14 @@ public class CalendarController : MonoBehaviour
            // Debug.Log(SelectDate + "날짜로 접수되었습니다.");
             _target.text = _yearNumText.text + "-" + _monthNumText.text + "-" + int.Parse(day).ToString("D2");
             RandomNumber();
+            AnimatorStepControl();
         }
         else
         {
             // 오류 팝업 띄우기
             //Debug.Log("2일 후 선택해 주세요.");
             Popup[0].SetActive(true);
+            _calendarPanel.SetActive(false);
         }        
     }
 
@@ -300,10 +305,10 @@ public class CalendarController : MonoBehaviour
             setDropDown(i, 0);
         }
     }
-    public void ReceiptPopUpOn()
+    /*public void ReceiptPopUpOn()
     {
         Popup[2].SetActive(true);
-    }
+    }*/
     public void PopUpClose()
     {
         for(int i =0; i<3;i++)
@@ -315,4 +320,20 @@ public class CalendarController : MonoBehaviour
         animator.SetTrigger("Next");
     }
 
+    public void AllObjectReset()
+    {
+        resetDropdowns();
+        _target.text = "Result Data ...";
+        InputField.text = "이름 입력";
+        for (int i = 0; i < 3; i++)
+        {
+            RandomList[i].text = " ";
+            TotalPrice.text = "0원";
+            TotalCount[i].text = " ";
+            Price[i].text = " ";
+            TotalList[i].text = " ";
+            totalprice = 0;
+            Count[i] = 0;
+        }
+    }
 }
