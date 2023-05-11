@@ -13,11 +13,9 @@ public class StepController : MonoBehaviour
     public Camera uiCamera;
     public LayerMask guideLayer;
     public VideoPlayer Vp;
-    GameObject objreset;
     public void Awake ()
     {        
-        Vp.url = System.IO.Path.Combine(Application.streamingAssetsPath, "SampleClip.mp4");
-        objreset = GameObject.Find("CalendarController");        
+        Vp.url = System.IO.Path.Combine(Application.streamingAssetsPath, "SampleClip.mp4");      
     }
     public void ChangeMainText (string code)
     {
