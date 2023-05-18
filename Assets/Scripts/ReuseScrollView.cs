@@ -1,14 +1,20 @@
+using Newtonsoft.Json;
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.Networking;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(ScrollRect))]
 public class ReuseScrollView : MonoBehaviour
 {
+    public string url = "https://jsonplaceholder.typicode.com/comments";
+    //public TMP_Text textComponent;
     public ScrollItem orgItemPrefab;
     public float itemHeight = 200.0f;
-    public List<int> dataList;
+    public List<string> dataList;
 
     private ScrollRect _scroll;
     private List<ScrollItem> itemList;
@@ -20,17 +26,47 @@ public class ReuseScrollView : MonoBehaviour
     }
     void Start()
     {
+        StartCoroutine(LoadJson());
         dataList.Clear();
-        for(int i = 0; i <100; i++)
+        /*for(int i = 0; i <100; i++)
         {
             dataList.Add(i);
-        }
+        }*/
         CreateItem();
         SetContenHight();
+        
     }
 
-    void CreateItem()
+    IEnumerator LoadJson()
     {
+        UnityWebRequest www = UnityWebRequest.Get(url);
+        yield return www.SendWebRequest();
+
+        if (www.result == UnityWebRequest.Result.ConnectionError || www.result == UnityWebRequest.Result.ProtocolError)
+        {
+            Debug.Log("Error loading JSON: " + www.error);
+        }
+        else
+        {
+            string json = www.downloadHandler.text;
+
+            // JSON 데이터를 Comment 배열로 변환합니다.
+            Comment[] comments = JsonConvert.DeserializeObject<Comment[]>(json);
+
+            // 필요한 속성 값을 추출하여 TMP_Text에 할당합니다.
+            string text = "";
+            foreach (Comment comment in comments)
+            {                 
+                text += "ID: " + comment.id + "\n";
+                text += "Name: " + comment.name + "\n";
+                text += "Email: " + comment.email + "\n\n";                
+            }
+            // TMP_Text에 할당하여 표시합니다.
+            dataList.Add(text);
+        }
+    }
+    void CreateItem()
+    {        
         RectTransform scrollRect = _scroll.GetComponent<RectTransform>();
         itemList = new List<ScrollItem>();
 
@@ -49,7 +85,7 @@ public class ReuseScrollView : MonoBehaviour
 
     void SetContenHight()
     {
-        _scroll.content.sizeDelta = new Vector2(_scroll.content.sizeDelta.x, dataList.Count * itemHeight); // * 빠짐
+        _scroll.content.sizeDelta = new Vector2(_scroll.content.sizeDelta.x, dataList.Count * itemHeight);
     }
 
     bool RelocationItem(ScrollItem item, float contentY, float scrollHeight)
@@ -84,8 +120,8 @@ public class ReuseScrollView : MonoBehaviour
         RectTransform scrollRect = _scroll.GetComponent<RectTransform>();
         float scrollHeight = scrollRect.rect.height;
         float contentY = _scroll.content.anchoredPosition.y;
-
-        foreach(ScrollItem item in itemList)
+        
+        foreach (ScrollItem item in itemList)
         {
             bool isChange = RelocationItem(item, contentY, scrollHeight);
             if(isChange)
@@ -93,6 +129,14 @@ public class ReuseScrollView : MonoBehaviour
                 int idx = (int)(-item.transform.localPosition.y / itemHeight);
                 SetData(item, idx);
             }
-        }
+        }        
+    }
+    [System.Serializable]
+    public class Comment
+    {
+        public int id;
+        public string name;
+        public string email;
     }
 }
+
