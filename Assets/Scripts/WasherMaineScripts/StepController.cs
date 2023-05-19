@@ -3,16 +3,19 @@ using System.Collections.Generic;
 using System.Runtime.InteropServices;
 
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.Video;
 
 public class StepController : MonoBehaviour
-{
+{    
     public Animator animator;
     public LocalizedTMPComponent localizedTMPComponent;
     public Camera mainCamera;
     public Camera uiCamera;
     public LayerMask guideLayer;
     public VideoPlayer Vp;
+    public Image image;
+    public static int ProgressBarValue; //      1 / 19 = 0.053,  16 = 0.0625
     public void Awake ()
     {        
         Vp.url = System.IO.Path.Combine(Application.streamingAssetsPath, "SampleClip.mp4");      
@@ -27,6 +30,7 @@ public class StepController : MonoBehaviour
         mainCamera.cullingMask = mainCamera.cullingMask ^ guideLayer;
         uiCamera.cullingMask = uiCamera.cullingMask ^ guideLayer;
         animator.SetInteger("PlayCount", animator.GetInteger("PlayCount") + 1);
+        image.fillAmount = 0;
         if (animator.GetInteger("PlayCount") >= 2)
         {
             Native.TestFinish();                     
@@ -35,7 +39,6 @@ public class StepController : MonoBehaviour
     
     public static class Native
     {
-
         [DllImport("__Internal")]
         public static extern void TestFinish ();
     }    
@@ -43,5 +46,11 @@ public class StepController : MonoBehaviour
     public void ObjReset()
     {
         CalendarController.action();
+    }
+
+    public void ProgressUpdate()
+    {
+        image.fillAmount += 0.1f;
+        Debug.Log(image.fillAmount);
     }
 }
