@@ -11,7 +11,7 @@ using UnityEngine.UI;
 public class ReuseScrollView : MonoBehaviour
 {
     public string url = "https://jsonplaceholder.typicode.com/comments";
-    //public TMP_Text textComponent;
+    public TMP_Text textComponent;
     public ScrollItem orgItemPrefab;
     public float itemHeight = 200.0f;
     public List<string> dataList;
@@ -27,14 +27,7 @@ public class ReuseScrollView : MonoBehaviour
     void Start()
     {
         StartCoroutine(LoadJson());
-        dataList.Clear();
-        /*for(int i = 0; i <100; i++)
-        {
-            dataList.Add(i);
-        }*/
-        CreateItem();
-        SetContenHight();
-        
+        dataList.Clear();      
     }
 
     IEnumerator LoadJson()
@@ -53,16 +46,16 @@ public class ReuseScrollView : MonoBehaviour
             // JSON 데이터를 Comment 배열로 변환합니다.
             Comment[] comments = JsonConvert.DeserializeObject<Comment[]>(json);
 
-            // 필요한 속성 값을 추출하여 TMP_Text에 할당합니다.
             string text = "";
+            // 필요한 속성 값을 추출하여 TMP_Text에 할당합니다.
             foreach (Comment comment in comments)
-            {                 
-                text += "ID: " + comment.id + "\n";
-                text += "Name: " + comment.name + "\n";
-                text += "Email: " + comment.email + "\n\n";                
+            {
+                text = "ID: " + comment.id + "\n"+"Email: " + comment.email + "\n"+ "Name: " + comment.name + "\n";
+                dataList.Add(text);
             }
-            // TMP_Text에 할당하여 표시합니다.
-            dataList.Add(text);
+
+            CreateItem();
+            SetContenHight();
         }
     }
     void CreateItem()
@@ -120,16 +113,18 @@ public class ReuseScrollView : MonoBehaviour
         RectTransform scrollRect = _scroll.GetComponent<RectTransform>();
         float scrollHeight = scrollRect.rect.height;
         float contentY = _scroll.content.anchoredPosition.y;
-        
-        foreach (ScrollItem item in itemList)
+        if (itemList != null)
         {
-            bool isChange = RelocationItem(item, contentY, scrollHeight);
-            if(isChange)
+            foreach (ScrollItem item in itemList)
             {
-                int idx = (int)(-item.transform.localPosition.y / itemHeight);
-                SetData(item, idx);
+                bool isChange = RelocationItem(item, contentY, scrollHeight);
+                if (isChange)
+                {
+                    int idx = (int)(-item.transform.localPosition.y / itemHeight);
+                    SetData(item, idx);
+                }
             }
-        }        
+        }
     }
     [System.Serializable]
     public class Comment
