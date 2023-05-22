@@ -16,10 +16,12 @@ public class StepController : MonoBehaviour
     public VideoPlayer Vp;
     public Image Progressbar;
     float timer = 0f;
+    public Toggle toggle;
 
     public void Awake ()
     {        
-        Vp.url = System.IO.Path.Combine(Application.streamingAssetsPath, "SampleClip.mp4");      
+        Vp.url = System.IO.Path.Combine(Application.streamingAssetsPath, "SampleClip.mp4");
+        toggle.onValueChanged.AddListener(ProgressbarOnOff);
     }
     public void ChangeMainText (string code)
     {
@@ -58,5 +60,21 @@ public class StepController : MonoBehaviour
     private void Update()
     {
         Progressbar.fillAmount = Mathf.Lerp(Progressbar.fillAmount, timer, 2f * Time.deltaTime);
+    }
+    int boolnum = 0;
+    public void ProgressbarOnOff(bool _bool)
+    {
+        if (_bool)
+        {         
+            Progressbar.enabled = _bool;
+            Debug.Log(_bool);
+        }
+        else
+        {
+            Progressbar.enabled = _bool;
+            Debug.Log(_bool + " F");
+            _bool = true;
+        }
+        boolnum++;
     }
 }
