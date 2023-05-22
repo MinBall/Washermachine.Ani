@@ -2554,7 +2554,7 @@ GameObject:
   - component: {fileID: 377764559}
   - component: {fileID: 377764558}
   m_Layer: 5
-  m_Name: Image
+  m_Name: Progress bar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2578,7 +2578,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 261.1}
-  m_SizeDelta: {x: 700, y: 20}
+  m_SizeDelta: {x: 700, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &377764558
 MonoBehaviour:
@@ -2593,14 +2593,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0.033422947, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10911, guid: 0000000000000000f000000000000000, type: 0}
+  m_Sprite: {fileID: 21300000, guid: a44c3a15c191ba64d80d79b6a2bd0fc3, type: 3}
   m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -13622,7 +13622,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   Vp: {fileID: 1243441667}
-  image: {fileID: 377764558}
+  Progressbar: {fileID: 377764558}
 --- !u!1 &1083213200
 GameObject:
   m_ObjectHideFlags: 0
