@@ -59,22 +59,17 @@ public class StepController : MonoBehaviour
 
     private void Update()
     {
-        Progressbar.fillAmount = Mathf.Lerp(Progressbar.fillAmount, timer, 2f * Time.deltaTime);
-    }
-    int boolnum = 0;
+        Progressbar.fillAmount = Mathf.Lerp(Progressbar.fillAmount, timer, 15 *Time.deltaTime);
+    }    
     public void ProgressbarOnOff(bool _bool)
     {
         if (_bool)
         {         
             Progressbar.enabled = _bool;
-            Debug.Log(_bool);
         }
         else
         {
-            Progressbar.enabled = _bool;
-            Debug.Log(_bool + " F");
-            _bool = true;
+            Progressbar.enabled = _bool;            
         }
-        boolnum++;
     }
 }
